@@ -8,6 +8,11 @@ public class UserBuilder {
 		user = new User();
 	}
 	
+	public UserBuilder id(String id) {
+		this.user.setId(id);
+		return this;
+	}
+	
 	public UserBuilder firstName(String firstName) {
 		this.user.setFirstName(firstName);
 		return this;

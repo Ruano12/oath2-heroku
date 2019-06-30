@@ -26,4 +26,34 @@ public class UserService {
 		return new UserDTO().builder(user.orElseThrow(() -> new ObjectNotFoundException("Usuario não encontrado")));
 	}
 	
+	public UserDTO create(UserDTO userDto) {
+		User user = new UserBuilder().firstName(userDto.getFirstName())
+									 .lastName(userDto.getLastName())
+									 .email(userDto.getEmail())
+									 .build();
+		return new UserDTO().builder(userRepository.save(user));
+	}
+	
+	public UserDTO alter(UserDTO userDto) {
+		Optional<User> user = userRepository.findById(userDto.getId());
+		
+		if(!user.isPresent())
+			throw new ObjectNotFoundException(String.format("Usuario não encontrado com o id %s", userDto.getId()));
+		
+		user.get().setEmail(userDto.getEmail());
+		user.get().setFirstName(userDto.getFirstName());
+		user.get().setLastName(userDto.getLastName());
+		
+		return new UserDTO().builder(userRepository.save(user.get()));
+	}
+	
+	public void delete(String id) {
+		Optional<User> user = userRepository.findById(id);
+		
+		if(!user.isPresent())
+			throw new ObjectNotFoundException(String.format("Usuario não encontrado com o id %s", id));
+		
+		userRepository.deleteById(id);
+	}
+	
 }
