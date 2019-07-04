@@ -1,11 +1,13 @@
 package com.marcelo.wsoauth2;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.marcelo.wsoauth2.role.Role;
 import com.marcelo.wsoauth2.role.RoleRepository;
@@ -21,6 +23,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	private String roleAdmin = "ROLE_ADMIN";
 	private String roleUser = "ROLE_USER";
@@ -38,11 +43,19 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 								      .email("maria@gmail.com")
 								      .build();
 		
-		createRoleIfNotFound(roleAdmin);
-		createRoleIfNotFound(roleAdmin);
+		Role adminRole = createRoleIfNotFound(roleAdmin);
+		Role userRole = createRoleIfNotFound(roleUser);
 		
-		createUserIfNotFound(joao);
-		createUserIfNotFound(maria);
+		joao.setRoles(Arrays.asList(adminRole));
+		joao.setPassword(passwordEncoder.encode("123"));
+		joao.setEnabled(true);
+		
+		maria.setRoles(Arrays.asList(userRole));
+		maria.setPassword(passwordEncoder.encode("123"));
+		maria.setEnabled(true);
+		
+		joao = createUserIfNotFound(joao);
+		maria = createUserIfNotFound(maria);		
 	}
 	
 	private User createUserIfNotFound(final User user) {

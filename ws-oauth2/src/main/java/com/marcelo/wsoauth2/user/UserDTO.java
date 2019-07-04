@@ -17,12 +17,18 @@ public class UserDTO implements Serializable {
 	
 	private String email;
 	
+	private String password;
+	
+	private boolean enabled;
+	
 	
 	public UserDTO builder(User user) {		
 		this.setId(user.getId());
 		this.setFirstName(user.getFirstName());
 		this.setLastName(user.getLastName());
 		this.setEmail(user.getEmail());
+		this.setPassword(user.getPassword());
+		this.setEnabled(user.isEnabled());
 		
 		return this;
 	}
@@ -65,6 +71,26 @@ public class UserDTO implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 	

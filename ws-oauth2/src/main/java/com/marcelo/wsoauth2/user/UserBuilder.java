@@ -28,6 +28,16 @@ public class UserBuilder {
 		return this;
 	}
 	
+	public UserBuilder password(String password) {
+		this.user.setPassword(password);
+		return this;
+	}
+	
+	public UserBuilder enabled(boolean enabled) {
+		this.user.setEnabled(enabled);
+		return this;
+	}
+	
 	public User build() {
 		return this.user;
 	}
