@@ -11,12 +11,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.marcelo.wsoauth2.exceptions.ObjectNotFoundException;
 import com.marcelo.wsoauth2.role.Role;
 import com.marcelo.wsoauth2.user.User;
 import com.marcelo.wsoauth2.user.UserService;
 
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
@@ -60,7 +62,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		@Override
 		public String getUsername() {
-			return getUsername();
+			return getEmail();
 		}
 
 		@Override
@@ -76,6 +78,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 		@Override
 		public boolean isCredentialsNonExpired() {
 			return true;
+		}
+		
+		@Override
+		public boolean isEnabled() {
+			return isUserEnabel();
 		}
 		
 	}

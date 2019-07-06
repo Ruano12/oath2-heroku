@@ -34,6 +34,8 @@ public class UserService {
 		User user = new UserBuilder().firstName(userDto.getFirstName())
 									 .lastName(userDto.getLastName())
 									 .email(userDto.getEmail())
+									 .password(userDto.getPassword())
+									 .enabled(userDto.isEnabled())
 									 .build();
 		return new UserDTO().builder(userRepository.save(user));
 	}

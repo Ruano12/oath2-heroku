@@ -89,6 +89,9 @@ public class User implements Serializable {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	public boolean isUserEnabel() {
+		return enabled;
+	}
 	
 	
 	@Override
