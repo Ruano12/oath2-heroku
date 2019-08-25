@@ -17,9 +17,12 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 
 import com.marcelo.wsoauth2.CustomUserDetailsService;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 
 @Configuration
 @EnableAuthorizationServer
+@ApiIgnore
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 	
 	private TokenStore tokenStore = new InMemoryTokenStore();

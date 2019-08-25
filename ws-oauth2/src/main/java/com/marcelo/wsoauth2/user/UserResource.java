@@ -1,9 +1,6 @@
 package com.marcelo.wsoauth2.user;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +13,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 @RequestMapping("/api")
+@Api(description = "Api de CRUD para entidade usuário")
 public class UserResource {
 	
 	@Autowired
 	private UserService userService;
 	
 	@GetMapping("/users")
+	@ApiOperation("Busca todos os usuários.")
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<UserDTO> users = userService.findAll();
 		
@@ -31,13 +34,15 @@ public class UserResource {
 	}
 	
 	@GetMapping("/users/{id}")
-	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+	@ApiOperation("Busca usuários pelo id.")
+	public ResponseEntity<UserDTO> findById(@ApiParam("Id do usuário. Não pode ser vazio") @PathVariable String id) {
 		UserDTO user = userService.findById(id);
 		
 		return ResponseEntity.ok().body(user);
 	}
 	
 	@PostMapping("/user")
+	@ApiOperation("Salva novo usuario.")
 	public ResponseEntity<UserDTO> save(@RequestBody UserDTO userDto){
 		UserDTO user = userService.create(userDto);
 		
@@ -45,6 +50,7 @@ public class UserResource {
 	}
 	
 	@PutMapping("/user")
+	@ApiOperation("Altera usuários pelo id.")
 	public ResponseEntity<UserDTO> update(@RequestBody UserDTO userDto){
 		UserDTO user = userService.alter(userDto);
 		
@@ -52,7 +58,8 @@ public class UserResource {
 	}
 	
 	@DeleteMapping("/user/{id}")
-	public ResponseEntity<String> delete(@PathVariable String id){
+	@ApiOperation("Deleta usuários pelo id.")
+	public ResponseEntity<String> delete(@ApiParam("Id do usuário. Não pode ser vazio") @PathVariable String id){
 		userService.delete(id);
 		
 		return ResponseEntity.ok().body("Usuario deletado com sucesso!!");

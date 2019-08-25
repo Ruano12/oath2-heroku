@@ -7,8 +7,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 
+import springfox.documentation.annotations.ApiIgnore;
+
 @Configuration
 @EnableResourceServer
+@ApiIgnore
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 	
 	private static final String RESOURCE_ID = "restservice";

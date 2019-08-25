@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 @RestController
 @RequestMapping("api")
+@Api(description = "Api de CRUD para entidade role")
 public class RoleResource {
 	
 	@Autowired
 	private RoleService roleService;
 	
 	@GetMapping("/role/{id}/user")
-	public ResponseEntity<List<Role>> findRoles(@PathVariable String id){
+	@ApiOperation("Busca roles do usuário.")
+	public ResponseEntity<List<Role>> findRoles(@ApiParam("Id do usuário. Não pode ser vazio") @PathVariable String id){
 		return ResponseEntity.ok().body(roleService.findUserRoles(id));
 	}
 }
